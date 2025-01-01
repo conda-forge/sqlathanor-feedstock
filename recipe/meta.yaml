@@ -6,23 +6,24 @@ package:
   version: {{ version }}
 
 source:
-  url: https://pypi.io/packages/source/{{ name[0] }}/{{ name }}/sqlathanor-{{ version }}.tar.gz
+  url: https://pypi.org/packages/source/{{ name[0] }}/{{ name }}/sqlathanor-{{ version }}.tar.gz
   sha256: 301bd78ef7e56c02ed9f4a5795d9cc89d3c3a18c646b7c0dc42bd38d78264a11
 
 build:
-  script: {{ PYTHON }} -m pip install . -vv
-  number: 0
+  script: {{ PYTHON }} -m pip install . -vv --no-deps --no-build-isolation
+  number: 1
   noarch: python
 
 requirements:
   host:
-    - python >=3.7,<4
+    - python {{ python_min }}
     - pip
+    - setuptools
   run:
-    - python >=3.7,<4
+    - python >={{ python_min }},<4
     - validator-collection >=1.4.0
     - simplejson >=3.0
-    - sqlalchemy >=0.10
+    - sqlalchemy >=0.10,<2
     - pyyaml >=3.13
 
 test:
@@ -32,6 +33,7 @@ test:
     - pip check
   requires:
     - pip
+    - python {{ python_min }}
 
 about:
   home: https://sqlathanor.readthedocs.io/en/latest
