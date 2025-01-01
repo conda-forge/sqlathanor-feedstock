@@ -23,7 +23,7 @@ requirements:
     - python >={{ python_min }},<4
     - validator-collection >=1.4.0
     - simplejson >=3.0
-    - sqlalchemy >=0.10
+    - sqlalchemy >=0.10,<2
     - pyyaml >=3.13
 
 test:
